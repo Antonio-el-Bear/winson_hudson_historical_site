@@ -306,6 +306,41 @@ function initReadMore() {
     }
 }
 
+// Timeline expansion for mobile
+function initTimelineExpand() {
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
+    
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach(item => {
+        const description = item.querySelector('.timeline-description');
+        if (!description) return;
+        
+        // Add expand button after description
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'expand-btn';
+        expandBtn.textContent = 'Read More';
+        expandBtn.setAttribute('aria-expanded', 'false');
+        
+        description.parentNode.insertBefore(expandBtn, description.nextSibling);
+        
+        expandBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isExpanded = expandBtn.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                description.style.maxHeight = '80px';
+                expandBtn.textContent = 'Read More';
+                expandBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                description.style.maxHeight = 'none';
+                expandBtn.textContent = 'Read Less';
+                expandBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+}
+
 // Falling Elements functionality
 function initFallingElements() {
     const container = document.getElementById('fallingElements');
@@ -552,6 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initParallax();
     initReadMore();
+    initTimelineExpand();
     handleScroll();
     window.addEventListener('scroll', handleScroll);
 });
