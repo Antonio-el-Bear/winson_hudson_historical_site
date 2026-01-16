@@ -1,0 +1,49 @@
+/* Falling Elements - Updated for images */
+.falling-element {
+    position: absolute;
+    opacity: 0.3;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    animation: fall linear forwards;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.falling-element img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.falling-poster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-15deg);
+}
+
+.falling-flyer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(10deg);
+}
+
+.falling-ticket {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-8deg);
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-200px) rotateZ(0deg);
+        opacity: 0.3;
+    }
+    to {
+        transform: translateY(100vh) rotateZ(360deg);
+        opacity: 0.3;
+    }
+}
