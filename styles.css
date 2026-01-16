@@ -1132,7 +1132,13 @@ body {
         text-align: center;
         padding: 100px 20px 60px 20px;
         gap: 2rem;
-    background-image: linear-gradient(135deg, rgba(26, 32, 44, 0.88), rgba(26, 32, 44, 0.88)), url('imgs/winson-hudson-9d9cfa3a-0f32-4242-ac59-97fa613fce1-resize-750.jpeg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        background-image: 
+            linear-gradient(135deg, rgba(26, 32, 44, 0.88), rgba(26, 32, 44, 0.88)),
+            url('imgs/winson-hudson-9d9cfa3a-0f32-4242-ac59-97fa613fce1-resize-750.jpeg') !important;
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+    }
 
     .hero-content {
         max-width: 100%;
@@ -1244,6 +1250,24 @@ body {
         color: #f59e0b;
     }
 
+    .biography-section {
+        background-image: 
+            linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+            url('imgs/OIP.jpg') !important;
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+    }
+
+    .timeline-section {
+        background-image: 
+            linear-gradient(135deg, rgba(245, 240, 230, 0.92), rgba(245, 240, 230, 0.92)),
+            url('imgs/OIP.webp') !important;
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+    }
+
     .biography-highlights {
         flex-direction: column;
     }
@@ -1337,30 +1361,3 @@ body {
     height: 60px;
     object-fit: contain;
 }
-
-
-    /* Mobile Background Styling */
-    .hero-section {
-        background-image: 
-            linear-gradient(135deg, rgba(26, 32, 44, 0.88), rgba(26, 32, 44, 0.88)),
-            url('imgs/winson-hudson-9d9cfa3a-0f32-4242-ac59-97fa613fce1-resize-750.jpeg') !important;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-
-    .biography-section {
-        background-image: 
-            linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
-            url('imgs/OIP.jpg');
-        background-size: cover;
-        background-position: center;
-    }
-
-    .timeline-section {
-        background-image: 
-            linear-gradient(135deg, rgba(245, 240, 230, 0.92), rgba(245, 240, 230, 0.92)),
-            url('imgs/OIP.webp');
-        background-size: cover;
-        background-position: center;
-    }
