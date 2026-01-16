@@ -162,8 +162,9 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 0.5rem;
     gap: 5px;
+    z-index: 1001;
 }
 
 .nav-toggle span {
@@ -1093,6 +1094,7 @@ body {
         gap: 0;
         transition: left 0.3s ease;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
     }
 
     .nav-menu.active {
@@ -1103,11 +1105,26 @@ body {
         width: 100%;
         text-align: center;
         padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-link {
         display: block;
         padding: 1rem;
+        width: 100%;
+        color: white;
+    }
+    
+    .nav-link:hover {
+        background-color: rgba(217, 119, 6, 0.1);
+        color: #d97706;
+    }
+    
+    .nav-link.active {
+        background-color: rgba(217, 119, 6, 0.2);
+        color: #f59e0b;
+        border-left: 4px solid #d97706;
+        padding-left: calc(1rem - 4px);
     }
 
     .hero-section {

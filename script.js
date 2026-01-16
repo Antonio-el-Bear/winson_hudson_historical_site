@@ -225,23 +225,48 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const navBrand = document.querySelector('.nav-brand');
     
+    if (!navToggle || !navMenu) return;
+    
     // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
     });
     
     // Close mobile menu when clicking a link
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            
+            // Prevent default and handle smooth scroll manually
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         });
     });
     
     // Scroll to top when clicking brand
     navBrand.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
     });
     
     // Add scrolled class for enhanced shadow effect
@@ -259,23 +284,29 @@ function initNavigation() {
     // Update active nav link based on scroll position
     function updateActiveNavLink() {
         const sections = document.querySelectorAll('section');
-        const scrollPos = window.pageYOffset + 150;
+        const scrollPos = window.pageYOffset + 100;
+        
+        let currentSection = null;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
             
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (currentSection && link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
             }
         });
     }
+    
+    // Initialize active link on page load
+    updateActiveNavLink();
 }
 
 // Read More functionality
