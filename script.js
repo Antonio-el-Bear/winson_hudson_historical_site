@@ -232,6 +232,13 @@ function initNavigation() {
         e.stopPropagation();
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
     
     // Close mobile menu when clicking a link
@@ -239,6 +246,7 @@ function initNavigation() {
         link.addEventListener('click', (e) => {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.style.overflow = '';
             
             // Prevent default and handle smooth scroll manually
             const href = link.getAttribute('href');
@@ -248,7 +256,9 @@ function initNavigation() {
                 const targetSection = document.getElementById(targetId);
                 
                 if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
                 }
             }
         });
@@ -258,14 +268,25 @@ function initNavigation() {
     navBrand.addEventListener('click', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        document.body.style.overflow = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
-    // Close menu when clicking outside
+    // Close menu when clicking outside (but not on the toggle)
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.navbar')) {
+        if (!e.target.closest('.navbar') && navMenu.classList.contains('active')) {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle escape key to close menu
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
     

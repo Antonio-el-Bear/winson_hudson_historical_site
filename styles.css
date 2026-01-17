@@ -1072,29 +1072,44 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0.75rem 0;
+        padding: 0.5rem 0;
+        z-index: 1100;
     }
 
     .nav-container {
-        padding: 0 20px;
+        padding: 0 15px;
+    }
+
+    .nav-brand {
+        font-size: 1.25rem;
+        flex: 1;
     }
 
     .nav-toggle {
         display: flex;
     }
 
+    .nav-toggle span {
+        width: 22px;
+        height: 2.5px;
+    }
+
     .nav-menu {
         position: fixed;
-        top: 60px;
+        top: 56px;
         left: -100%;
         width: 100%;
-        background-color: rgba(26, 32, 44, 0.98);
+        height: calc(100vh - 56px);
+        max-height: calc(100vh - 56px);
+        background-color: rgba(26, 32, 44, 0.99);
         flex-direction: column;
-        padding: 2rem 0;
+        padding: 1.5rem 0;
         gap: 0;
         transition: left 0.3s ease;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 999;
+        overflow-y: auto;
+        will-change: transform;
     }
 
     .nav-menu.active {
@@ -1104,27 +1119,31 @@ body {
     .nav-menu li {
         width: 100%;
         text-align: center;
-        padding: 0.5rem 0;
+        padding: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-link {
         display: block;
-        padding: 1rem;
+        padding: 1.25rem;
         width: 100%;
         color: white;
+        font-size: 1.05rem;
+        border-radius: 0;
+        transition: background-color 0.2s ease, color 0.2s ease;
     }
     
     .nav-link:hover {
-        background-color: rgba(217, 119, 6, 0.1);
+        background-color: rgba(217, 119, 6, 0.15);
         color: #d97706;
     }
     
     .nav-link.active {
-        background-color: rgba(217, 119, 6, 0.2);
-        color: #f59e0b;
-        border-left: 4px solid #d97706;
-        padding-left: calc(1rem - 4px);
+        background-color: rgba(217, 119, 6, 0.25);
+        color: #fbbf24;
+        border-left: 0;
+        padding-left: 1.25rem;
+        border-bottom: 3px solid #d97706;
     }
 
     .hero-section {
