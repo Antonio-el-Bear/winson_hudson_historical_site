@@ -1093,6 +1093,7 @@ body.nav-open {
         display: flex;
         position: relative;
         z-index: 1101;
+        pointer-events: auto;
     }
 
     .nav-toggle span {
@@ -1102,13 +1103,13 @@ body.nav-open {
 
     .nav-menu {
         position: fixed;
-        top: 56px;
+        top: 0;
         left: 0;
         width: 100%;
-        height: calc(100vh - 56px);
+        height: 100vh;
         background-color: rgba(26, 32, 44, 0.99);
         flex-direction: column;
-        padding: 1rem 0;
+        padding: 4.5rem 0 1rem;
         gap: 0;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1200;
@@ -1123,6 +1124,15 @@ body.nav-open {
         transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
+    }
+
+    /* Add slight overlay effect when menu is open */
+    body.nav-open::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.25);
+        z-index: 1100;
     }
 
     .nav-menu li {
