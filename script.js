@@ -89,6 +89,8 @@ function initSmoothScroll() {
     
     links.forEach(link => {
         link.addEventListener('click', (e) => {
+            // Navigation links have their own handler with offset; skip here
+            if (link.classList.contains('nav-link')) return;
             e.preventDefault();
             const targetId = link.getAttribute('href');
             const targetSection = document.querySelector(targetId);
