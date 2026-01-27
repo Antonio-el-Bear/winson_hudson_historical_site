@@ -89,6 +89,7 @@ body {
     padding: 1rem 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .navbar.scrolled {
@@ -103,6 +104,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .nav-brand {
@@ -189,6 +192,7 @@ body {
 
 body.nav-open {
     overflow: hidden;
+    padding-right: 0;
 }
 
 .section-container {
