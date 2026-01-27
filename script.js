@@ -221,54 +221,33 @@ document.addEventListener('DOMContentLoaded', createScrollIndicator);
 
 // Navigation functionality
 function initNavigation() {
-    console.log('initNavigation called');
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
     const navbar = document.getElementById('navbar');
-
-    console.log('Elements retrieved:', {
-        navToggleExists: !!navToggle,
-        navMenuExists: !!navMenu,
-        navbarExists: !!navbar,
-        navLinksCount: navLinks.length
-    });
 
     if (!navToggle || !navMenu || !navbar) {
         console.error('FATAL: Navigation elements missing!');
         return;
     }
 
-    // TEST: Direct click on button
-    console.log('Attaching click listener to toggle button');
-    navToggle.addEventListener('click', function(e) {
-        console.log('>>> BUTTON CLICK DETECTED <<<');
+    // Toggle menu on button click
+    navToggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
-        const isActive = navMenu.classList.contains('active');
-        console.log('Current menu state:', isActive ? 'open' : 'closed');
-        
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
-        const newState = navMenu.classList.contains('active');
-        document.body.classList.toggle('nav-open', newState);
-        navToggle.setAttribute('aria-expanded', newState ? 'true' : 'false');
-        
-        console.log('New menu state:', newState ? 'open' : 'closed');
+        document.body.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', navMenu.classList.contains('active'));
     });
 
-    // Handle nav link clicks
-    console.log('Attaching click listeners to', navLinks.length, 'nav links');
-    navLinks.forEach((link, index) => {
-        link.addEventListener('click', function(e) {
-            console.log(`Link ${index} clicked:`, this.textContent, '→', this.getAttribute('href'));
+    // Close menu on nav link click and navigate
+    navLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
             
             const href = link.getAttribute('href');
             const target = document.querySelector(href);
-            
-            console.log('Target element:', target ? 'found' : 'NOT FOUND');
             
             if (target) {
                 // Close menu
@@ -276,15 +255,12 @@ function initNavigation() {
                 navMenu.classList.remove('active');
                 document.body.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
-                console.log('Menu closed');
                 
                 // Scroll after menu animation
                 setTimeout(() => {
                     const navbarHeight = navbar.offsetHeight || 56;
                     const targetTop = target.offsetTop;
                     const scrollTo = targetTop - navbarHeight - 10;
-                    
-                    console.log('Scrolling to:', {navbarHeight, targetTop, scrollTo});
                     
                     window.scrollTo({
                         top: scrollTo,
@@ -295,10 +271,10 @@ function initNavigation() {
         });
     });
 
-    // Close menu when clicking outside
+    // Close menu on outside click
     document.addEventListener('click', (e) => {
+        // Only close if click is outside navbar AND menu is open
         if (navMenu.classList.contains('active') && !navbar.contains(e.target)) {
-            console.log('Outside click detected, closing menu');
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.classList.remove('nav-open');
@@ -309,7 +285,6 @@ function initNavigation() {
     // Close on Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            console.log('Escape key pressed, closing menu');
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.classList.remove('nav-open');
@@ -317,10 +292,9 @@ function initNavigation() {
         }
     });
 
-    // Close on resize
+    // Close on resize to desktop
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-            console.log('Resized to desktop, closing menu');
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.classList.remove('nav-open');
@@ -328,7 +302,7 @@ function initNavigation() {
         }
     });
 
-    // Scroll effect
+    // Navbar scroll effect
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 50) {
             navbar.classList.add('scrolled');
@@ -336,8 +310,6 @@ function initNavigation() {
             navbar.classList.remove('scrolled');
         }
     });
-    
-    console.log('initNavigation complete');
 }
 
 // Read More functionality
@@ -641,27 +613,7 @@ function initParallax() {
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('=== DOMContentLoaded fired ===');
-    
-    // Test if elements exist FIRST
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navbar = document.getElementById('navbar');
-    
-    console.log('Element check:', {
-        navToggle: !!navToggle,
-        navMenu: !!navMenu,
-        navbar: !!navbar
-    });
-    
-    // Only proceed if elements exist
-    if (navToggle && navMenu && navbar) {
-        console.log('All elements found, initializing...');
-        initNavigation();
-    } else {
-        console.error('MISSING ELEMENTS:', {navToggle, navMenu, navbar});
-    }
-    
+    initNavigation();
     initFallingElements();
     initHeroImageCarousel();
     initImageCarousel();
