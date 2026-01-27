@@ -615,16 +615,6 @@ function initParallax() {
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     
-    // Open nav menu by default on mobile
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (window.innerWidth <= 768 && navToggle && navMenu) {
-        navToggle.classList.add('active');
-        navMenu.classList.add('active');
-        document.body.classList.add('nav-open');
-        navToggle.setAttribute('aria-expanded', 'true');
-    }
-    
     initFallingElements();
     initHeroImageCarousel();
     initImageCarousel();
