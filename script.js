@@ -257,17 +257,26 @@ function initNavigation() {
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
+            e.preventDefault();
             const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const offset = navbar.offsetHeight + 10;
-                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
+            const target = document.querySelector(href);
+            
+            if (target) {
+                // Close menu first
+                closeMenu();
+                
+                // Wait for menu animation to complete, then scroll
+                setTimeout(() => {
+                    const navbarHeight = navbar.offsetHeight;
+                    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - navbarHeight - 20;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 300);
             }
-            closeMenu();
         });
     });
 
